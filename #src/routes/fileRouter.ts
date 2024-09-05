@@ -13,5 +13,5 @@ fileRouter.use(fileUpload({
     defParamCharset: 'utf-8'
 }));
 
-fileRouter.post("/", [tokenAuthorizeCheck()], file.upload);
-fileRouter.get("/:file", [tokenAuthorizeCheck()], file.get);
+fileRouter.post("/", [tokenAuthorizeCheck], file.upload);
+fileRouter.get("/:file", [tokenAuthorizeCheck], file.get);
