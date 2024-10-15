@@ -3,10 +3,13 @@ import { saveFileAndReturnInfo } from "../utils/saveFileAndReturnInfo";
 import { isNotArray } from "../utils/isNoArray";
 import { ReqWithParams } from "../baseTypes";
 
-export class File {
+export class FileService {
     async upload(req: Request, res: Response) {
         // 
-        if (!req.files || Object.keys(req.files).length === 0) return res.json({ee: false})
+        if (!req.files || Object.keys(req.files).length === 0) {
+            res.json({ee: false})
+            return
+        }
 
         const files = Object.values(req.files).filter(isNotArray);
         
@@ -16,11 +19,12 @@ export class File {
 
         const data = filePaths.map(([val]) => val);
 
-        return res.status(200).json({
+        res.status(200).json({
             files: data,
         });
     }
 
+    
     async get(req: ReqWithParams<{ file: string }>, res: Response) {
         
         const { file } = req.params;
